@@ -1,0 +1,126 @@
+{
+  "app": {
+    "id": "/ci/order/shoppingcart",
+    "lastTaskFailure": {
+      "taskId": "ci_order_shoppingcart.c6a69588-df03-11e5-8419-005056945519",
+      "message": "Docker container run error: Container exited on error: exited with status 1",
+      "appId": "/ci/order/shoppingcart",
+      "host": "mesos-agent-1.lhotse.ov.otto.de",
+      "version": "2016-02-29T16:45:01.415Z",
+      "timestamp": "2016-02-29T16:45:34.427Z",
+      "state": "TASK_FAILED",
+      "slaveId": "37f72e78-48d4-4642-a06d-37b60d170416-S2"
+    },
+    "ipAddress": null,
+    "storeUrls": [
+    ],
+    "upgradeStrategy": {
+      "minimumHealthCapacity": 1,
+      "maximumOverCapacity": 1
+    },
+    "uris": [
+    ],
+    "version": "2016-03-08T13:13:06.007Z",
+    "labels": {
+    },
+    "requirePorts": false,
+    "instances": 2,
+    "deployments": [
+    ],
+    "user": "nobody",
+    "container": {
+      "type": "DOCKER",
+      "volumes": [
+      ],
+      "docker": {
+        "privileged": false,
+        "parameters": [
+        ],
+        "forcePullImage": false,
+        "image": "my-registry.example.org/order/shoppingcart:0.1.2",
+        "network": "HOST"
+      }
+    },
+    "healthChecks": [
+      {
+        "protocol": "HTTP",
+        "intervalSeconds": 5,
+        "portIndex": 0,
+        "gracePeriodSeconds": 1800,
+        "maxConsecutiveFailures": 1,
+        "path": "/shoppingcart/internal/health",
+        "timeoutSeconds": 2,
+        "ignoreHttp1xx": false
+      }
+    ],
+    "tasksHealthy": 2,
+    "cpus": 2,
+    "maxLaunchDelaySeconds": 3600,
+    "ports": [
+      8008
+    ],
+    "mem": 4096,
+    "constraints": [
+      [
+        "hostname",
+        "UNIQUE"
+      ],
+      [
+        "environment",
+        "LIKE",
+        "shop"
+      ]
+    ],
+    "dependencies": [
+    ],
+    "tasks": [
+      {
+        "startedAt": "2016-03-08T13:13:13.728Z",
+        "healthCheckResults": [
+          {
+            "consecutiveFailures": 0,
+            "alive": true,
+            "lastFailure": null,
+            "lastSuccess": "2016-03-08T13:15:51.726Z",
+            "taskId": "ci_order_shoppingcart.7eff6b84-e52f-11e5-ac1e-005056945519",
+            "firstSuccess": "2016-03-08T13:13:27.024Z"
+          }
+        ],
+        "id": "ci_order_shoppingcart.7eff6b84-e52f-11e5-ac1e-005056945519",
+        "ipAddresses": [
+        ],
+        "host": "mesos-agent-1.lhotse.ov.otto.de",
+        "ports": [
+          31358
+        ],
+        "version": "2016-03-08T13:13:06.007Z",
+        "slaveId": "37f72e78-48d4-4642-a06d-37b60d170416-S7",
+        "appId": "/ci/order/shoppingcart",
+        "stagedAt": "2016-03-08T13:13:06.156Z"
+      }
+    ],
+    "env": {
+      "OTTO_GENERATE_ICINGA_CHECKS": "true",
+      "OTTO_STATUS_PATH": "/shoppingcart/internal/status",
+      "GROUP": "ci",
+      "OTTO_PROXIES": "ib,pa",
+      "OTTO_RUNBOOK_URL": "http://docs.example.org/docs/shoppingcart-runbook.html",
+      "OTTO_PROXY_FIRST_BYTE_TIMEOUT": "5",
+      "OTTO_CONTACT": "order-team@example.org"
+    },
+    "tasksUnhealthy": 0,
+    "tasksStaged": 0,
+    "backoffSeconds": 1,
+    "args": null,
+    "executor": "",
+    "backoffFactor": 1.1499999999999999,
+    "tasksRunning": 1,
+    "versionInfo": {
+      "lastConfigChangeAt": "2016-03-08T13:13:06.007Z",
+      "lastScalingAt": "2016-03-08T13:13:06.007Z"
+    },
+    "acceptedResourceRoles": null,
+    "disk": 0,
+    "cmd": null
+  }
+}

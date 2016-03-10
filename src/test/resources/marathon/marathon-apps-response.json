@@ -1,0 +1,181 @@
+{
+  "apps": [
+    {
+      "container": {
+        "type": "DOCKER",
+        "volumes": [
+        ],
+        "docker": {
+          "privileged": false,
+          "parameters": [
+          ],
+          "forcePullImage": false,
+          "image": "my-registry/foo:0.1.2",
+          "network": "HOST"
+        }
+      },
+      "backoffFactor": 1.1499999999999999,
+      "uris": [
+      ],
+      "labels": {
+      },
+      "ipAddress": null,
+      "tasksStaged": 0,
+      "maxLaunchDelaySeconds": 3600,
+      "deployments": [
+      ],
+      "constraints": [
+        [
+          "hostname",
+          "UNIQUE"
+        ],
+        [
+          "environment",
+          "LIKE",
+          "shop"
+        ]
+      ],
+      "cmd": null,
+      "ports": [
+        8008
+      ],
+      "dependencies": [
+      ],
+      "backoffSeconds": 1,
+      "args": null,
+      "upgradeStrategy": {
+        "minimumHealthCapacity": 1,
+        "maximumOverCapacity": 1
+      },
+      "version": "2016-03-07T15:51:46.074Z",
+      "storeUrls": [
+      ],
+      "mem": 2048,
+      "acceptedResourceRoles": null,
+      "id": "/ci/order/shoppingcart",
+      "user": "foouser",
+      "requirePorts": false,
+      "healthChecks": [
+        {
+          "protocol": "HTTP",
+          "intervalSeconds": 5,
+          "portIndex": 0,
+          "gracePeriodSeconds": 1800,
+          "maxConsecutiveFailures": 1,
+          "path": "/shoppingcart/internal/health",
+          "timeoutSeconds": 2,
+          "ignoreHttp1xx": false
+        }
+      ],
+      "env": {
+        "OTTO_GENERATE_ICINGA_CHECKS": "true",
+        "OTTO_STATUS_PATH": "/shoppingcart/internal/status",
+        "GROUP": "order",
+        "OTTO_PROXIES": "ib,pa",
+        "OTTO_RUNBOOK_URL": "http://docs.example.org/docs/shoppingcart-runbook.html",
+        "OTTO_PROXY_FIRST_BYTE_TIMEOUT": "5",
+        "OTTO_CONTACT": "order-team@example.org"
+      },
+      "executor": "",
+      "cpus": 4,
+      "versionInfo": {
+        "lastConfigChangeAt": "2016-03-07T15:51:46.074Z",
+        "lastScalingAt": "2016-03-07T15:51:46.074Z"
+      },
+      "tasksHealthy": 1,
+      "instances": 1,
+      "disk": 0,
+      "tasksRunning": 1,
+      "tasksUnhealthy": 0
+    },
+    {
+      "container": {
+        "type": "DOCKER",
+        "volumes": [
+        ],
+        "docker": {
+          "privileged": false,
+          "parameters": [
+          ],
+          "forcePullImage": false,
+          "image": "my-registry/foo:0.1.2",
+          "network": "HOST"
+        }
+      },
+      "backoffFactor": 1.1499999999999999,
+      "uris": [
+      ],
+      "labels": {
+      },
+      "ipAddress": null,
+      "tasksStaged": 0,
+      "maxLaunchDelaySeconds": 3600,
+      "deployments": [
+      ],
+      "constraints": [
+        [
+          "hostname",
+          "UNIQUE"
+        ],
+        [
+          "environment",
+          "LIKE",
+          "shop"
+        ]
+      ],
+      "cmd": null,
+      "ports": [
+        8008
+      ],
+      "dependencies": [
+      ],
+      "backoffSeconds": 1,
+      "args": null,
+      "upgradeStrategy": {
+        "minimumHealthCapacity": 1,
+        "maximumOverCapacity": 1
+      },
+      "version": "2016-03-07T15:51:46.074Z",
+      "storeUrls": [
+      ],
+      "mem": 2048,
+      "acceptedResourceRoles": null,
+      "id": "/live/order/shoppingcart",
+      "user": "foouser",
+      "requirePorts": false,
+      "healthChecks": [
+        {
+          "protocol": "HTTP",
+          "intervalSeconds": 5,
+          "portIndex": 0,
+          "gracePeriodSeconds": 1800,
+          "maxConsecutiveFailures": 1,
+          "path": "/shoppingcart/internal/health",
+          "timeoutSeconds": 2,
+          "ignoreHttp1xx": false
+        }
+      ],
+      "env": {
+        "OTTO_GENERATE_ICINGA_CHECKS": "true",
+        "OTTO_STATUS_PATH": "/shoppingcart/internal/status",
+        "GROUP": "ci",
+        "OTTO_PROXIES": "ib,pa",
+        "OTTO_RUNBOOK_URL": "http://docs.example.org/docs/shoppingcart-runbook.html",
+        "OTTO_PROXY_FIRST_BYTE_TIMEOUT": "5",
+        "OTTO_CONTACT": "order-team@example.org"
+      },
+      "executor": "",
+      "cpus": 4,
+      "versionInfo": {
+        "lastConfigChangeAt": "2016-03-07T15:51:46.074Z",
+        "lastScalingAt": "2016-03-07T15:51:46.074Z"
+      },
+      "tasksHealthy": 1,
+      "instances": 2,
+      "disk": 0,
+      "tasksRunning": 1,
+      "tasksUnhealthy": 0
+    }
+
+  ]
+}
