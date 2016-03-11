@@ -13,13 +13,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
-import static de.otto.edison.discovery.marathon.AppIdParser.ClusterAttr.*;
+import static de.otto.edison.discovery.marathon.AppIdParser.ClusterAttr.ENV;
+import static de.otto.edison.discovery.marathon.AppIdParser.ClusterAttr.GROUP;
+import static de.otto.edison.discovery.marathon.AppIdParser.ClusterAttr.SERVICE;
 import static java.util.Collections.emptyList;
+import static java.util.stream.Collectors.toList;
 
 /**
  * DiscoveryService that is using the Marathon API to lookup clusters and service nodes of
@@ -32,20 +34,20 @@ public class MarathonDiscoveryService implements DiscoveryService {
     private final static Logger LOG = LoggerFactory.getLogger(MarathonDiscoveryService.class);
 
     private final HttpService httpService;
-    private final String marathonAppsAPI;
+    private final List<String> marathonAppsAPI;
     private final String marathonApiUsername;
     private final String marathonApiPassword;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final ServiceUrlFactory serviceUrlFactory;
     private final AppIdParser appIdParser;
 
-    public MarathonDiscoveryService(final String marathonAppsAPI,
+    public MarathonDiscoveryService(final List<String> marathonServers,
                                     final String marathonApiUsername,
                                     final String marathonApiPassword,
                                     final ServiceUrlFactory serviceUrlFactory,
                                     final AppIdParser appIdParser) {
         this.httpService = new HttpService();
-        this.marathonAppsAPI = marathonAppsAPI + "/v2/apps";
+        this.marathonAppsAPI = marathonServers.stream().map(s->s + "/v2/apps").collect(toList());
         this.marathonApiUsername = marathonApiUsername;
         this.marathonApiPassword = marathonApiPassword;
         this.serviceUrlFactory = serviceUrlFactory;
@@ -54,17 +56,21 @@ public class MarathonDiscoveryService implements DiscoveryService {
 
     @Override
     public List<ClusterInfo> discover() {
-        try {
-            final Response response = httpService.getJson(
-                    marathonApiUsername,
-                    marathonApiPassword,
-                    marathonAppsAPI
-            );
-            return parseJsonResponse(response);
-        } catch (TimeoutException | IOException | InterruptedException | ExecutionException e) {
-            LOG.error("Unable to access marathon API at '{}'. Please check your application.properties", marathonAppsAPI, e);
-            return emptyList();
-        }
+            final List<ClusterInfo> clusterInfos = new ArrayList<>();
+            marathonAppsAPI.stream()
+                    .forEach(url->{
+                        try {
+                            final Response response = httpService.getJson(
+                                    marathonApiUsername,
+                                    marathonApiPassword,
+                                    url
+                            );
+                            clusterInfos.addAll(parseJsonResponse(response));
+                        } catch (TimeoutException | IOException | InterruptedException | ExecutionException e) {
+                            LOG.error("Unable to access marathon API at '{}'. Please check your application.properties", marathonAppsAPI, e);
+                        }
+            });
+            return clusterInfos;
     }
 
     /**

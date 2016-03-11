@@ -13,7 +13,7 @@ information that is needed to discover running services.
 
 Enable Marathon service discovery by providing the following properties:
 
-* edison.servicediscovery.marathon.url: The URL of the marathon server (http://marathon.example.org)
+* edison.servicediscovery.marathon.servers: The comma-separated list of marathon server (http://marathon.example.org) urls
 * edison.servicediscovery.marathon.username: Optional user used for authentication at the marathon server
 * edison.servicediscovery.marathon.password: Optional password used for authentication at the marathon server
 
@@ -39,7 +39,7 @@ http://prelive.example.org/order-shoppingcart in a prelive stage.
 
 ## Conditional Spring Beans
 
-If edison.servicediscovery.marathon.url is provided, the MarathonDiscoveryService is auto-configured. 
+If edison.servicediscovery.marathon.servers is provided, the MarathonDiscoveryService is auto-configured. 
 
 Information like environment, group and service name is extracted from the Marathon appId using an AppIdParser.
 By default, the @ConditionalOnMissingBean DefaultAppIdParser is used. 

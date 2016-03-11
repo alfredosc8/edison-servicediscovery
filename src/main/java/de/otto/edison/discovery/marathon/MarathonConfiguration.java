@@ -10,13 +10,15 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import static java.util.Arrays.asList;
+
 
 @Configuration
-@ConditionalOnProperty(name = "edison.servicediscovery.marathon.url")
+@ConditionalOnProperty(name = "edison.servicediscovery.marathon.servers")
 @Beta
 public class MarathonConfiguration {
 
-    private @Value("${edison.servicediscovery.marathon.url}") String marathonApiUrl;
+    private @Value("${edison.servicediscovery.marathon.servers}") String marathonApiUrls;
     private @Value("${edison.servicediscovery.marathon.username}") String marathonApiUsername;
     private @Value("${edison.servicediscovery.marathon.password}") String marathonApiPassword;
 
@@ -38,6 +40,6 @@ public class MarathonConfiguration {
     @Bean
     @ConditionalOnMissingBean(DiscoveryService.class)
     public DiscoveryService discoveryService() {
-        return new MarathonDiscoveryService(marathonApiUrl, marathonApiUsername, marathonApiPassword, serviceUrlFactory(), appIdParser());
+        return new MarathonDiscoveryService(asList(marathonApiUrls.split(",")), marathonApiUsername, marathonApiPassword, serviceUrlFactory(), appIdParser());
     }
 }
