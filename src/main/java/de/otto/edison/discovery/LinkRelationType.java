@@ -23,6 +23,18 @@ public enum LinkRelationType {
      */
     REL_SERVICE_INTERNAL("http://github.com/otto-de/edison/link-relations/service/internal"),
     /**
+     * Relation type of a link to the status page of Edison services.
+     *
+     * Example for a service-url: http://internal.live.example.org:8080/my-service/internal/status
+     */
+    REL_SERVICE_STATUS("http://github.com/otto-de/edison/link-relations/service/status"),
+    /**
+     * Relation type of a link to service's healthcheck.
+     *
+     * Example for a service-url: http://internal.live.example.org:8080/my-service/internal/healthcheck
+     */
+    REL_SERVICE_HEALTH("http://github.com/otto-de/edison/link-relations/service/health"),
+    /**
      * Relation type of a link to single cluster nodes of Edison services.
      *
      * Example for a service-url: http://10.106.42.42:8080/my-service/internal
