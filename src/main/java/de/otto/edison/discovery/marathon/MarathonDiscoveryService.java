@@ -87,15 +87,24 @@ public class MarathonDiscoveryService implements DiscoveryService {
             final String appId = appNode.path("id").asText();
             Map<ClusterAttr, String> parts = appIdParser.clusterAttrOf(appId);
             if (!parts.isEmpty()) {
-                clusters.add(new ClusterInfo(
+                final String serviceName = parts.get(SERVICE);
+                final String group = parts.get(GROUP);
+                final String environment = parts.get(ENV);
+                final ClusterInfo clusterInfo = new ClusterInfo(
                         appId,
-                        parts.get(SERVICE),
-                        parts.get(GROUP),
-                        parts.get(ENV),
+                        serviceName,
+                        group,
+                        environment,
                         propertiesOf(appNode),
                         nodeInfos(appId),
-                        serviceUrlFactory.getServiceUrls(appId, parts.get(SERVICE), parts.get(GROUP), parts.get(ENV))
-                ));
+                        serviceUrlFactory.getServiceUrls(appId, serviceName, group, environment)
+                );
+                if (!clusters
+                        .stream()
+                        .filter(clusterInfo::isSameCluster)
+                        .findAny().isPresent()) {
+                    clusters.add(clusterInfo);
+                }
             }
         });
         return clusters;

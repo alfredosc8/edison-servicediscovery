@@ -67,6 +67,12 @@ public final class ClusterInfo {
         return serviceUrls;
     }
 
+    public boolean isSameCluster(final ClusterInfo c) {
+        return c.getServiceName().equals(service)
+                && c.getGroup().equals(group)
+                && c.getEnvironment().equals(environment);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
