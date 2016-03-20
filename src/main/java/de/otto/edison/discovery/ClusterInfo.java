@@ -4,6 +4,7 @@ import de.otto.edison.annotations.Beta;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Information about discovered application clusters
@@ -65,6 +66,12 @@ public final class ClusterInfo {
 
     public List<ServiceUrl> getServiceUrls() {
         return serviceUrls;
+    }
+
+    public Optional<ServiceUrl> getServiceUrl(final LinkRelationType rel) {
+        return serviceUrls.stream()
+                .filter(serviceUrl -> serviceUrl.getRel().equals(rel))
+                .findAny();
     }
 
     public boolean isSameCluster(final ClusterInfo c) {
